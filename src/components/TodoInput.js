@@ -7,29 +7,47 @@ import Todo from './Todo';
 class Input extends Component {
 	state = {
 		items: [],
-		name: ''
+		name: '',
 	};
+	generateId=()=> {
+		return (
+			Math.random().toString(36).substring(2) +
+			new Date().getTime().toString(36)
+		);
+	}
 	addItem = () => {
-		
-		this.setState((prevState)=>({
-			items: prevState.items.concat(this.state.name)
-		}))
+		this.setState((prevState) => ({
+			items: prevState.items.concat(this.state.name),
+		}));
 		this.setState({
-			name:''
-		})
+			name: '',
+		});
 	};
-	onChange=(e)=>{
+	onChange = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value,
-			
-		})
-		
-	}
+		});
+	};
+	handleDelete = (item) => {
+		this.setState((prevState) => ({
+			items: prevState.items.filter((l) => {
+				// I need to find a way to set IDs so clicking on delete doesnt delete two same words
+				
+				// console.log(l.id)
+				
+				// console.log(item.id)
+				return l !== item;
+			}),
+		}));
+	};
+	handleToggle = () => {
+		this.state.items.map((item) => (item.checked ? console.log(true) : console.log(false)));
+	};
 	render() {
 		const { items, name } = this.state;
 		return (
 			<Container>
-				<form >
+				<form>
 					<TextField
 						name='name'
 						type='text'
@@ -51,7 +69,11 @@ class Input extends Component {
 					</Button>
 				</form>
 
-				<Todo items={items} />
+				<Todo
+					items={items}
+					handleDelete={this.handleDelete}
+					handleToggle={this.handleToggle}
+				/>
 			</Container>
 		);
 	}

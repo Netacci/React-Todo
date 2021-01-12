@@ -10,7 +10,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 class Todo extends Component {
 	render() {
-		const { items } = this.props;
+		const { items, handleDelete, handleToggle } = this.props;
+
 		function generateId() {
 			return (
 				Math.random().toString(36).substring(2) +
@@ -22,13 +23,32 @@ class Todo extends Component {
 			<div>
 				<List>
 					{items.map((item) => (
-						<ListItem key={generateId()}>
+						<ListItem
+							key={generateId()}
+							style={{
+								paddingLeft: '5rem',
+								paddingReft: '5rem',
+								marginTop: '1rem',
+							}}
+						>
 							<ListItemIcon>
-								<Checkbox edge='start' tabIndex={-1} disableRipple />
+								<Checkbox
+									edge='start'
+									tabIndex={-1}
+									disableRipple
+									onChange={() => handleToggle(item)}
+								/>
 							</ListItemIcon>
-							<ListItemText primary={item} />
+							<ListItemText
+								id={generateId()}
+								style={{ wordWrap: 'break-word' }}
+								primary={item}
+							/>
 
-							<IconButton aria-label='delete'>
+							<IconButton
+								aria-label='delete'
+								onClick={() => handleDelete(item)}
+							>
 								<DeleteIcon />
 							</IconButton>
 							{/* <Button variant='contained' color='red' startIcon={<DeleteIcon />}>
