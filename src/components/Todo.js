@@ -9,8 +9,29 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 class Todo extends Component {
+	state = {
+		checked: false,
+	};
+	// My issue is trying to get one item toggled. They all keep toggling even tho they are mapped.
+	handleToggle = () => {
+		this.setState((prevState) => ({
+			checked: !prevState.checked,
+		}));
+	};
+	onChange = (event) => {
+		const value = event.target.checked;
+		const name = event.target.name;
+
+		this.setState({
+			[name]: value,
+		});
+		// this.setState({
+		// 	[e.target.name]: e.target.checked,
+		// });
+	};
 	render() {
-		const { items, handleDelete, handleToggle } = this.props;
+		const { items, handleDelete } = this.props;
+		const { checked } = this.state;
 
 		function generateId() {
 			return (
@@ -33,15 +54,25 @@ class Todo extends Component {
 						>
 							<ListItemIcon>
 								<Checkbox
+									name={item}
+									type='checkbox'
 									edge='start'
 									tabIndex={-1}
 									disableRipple
-									onChange={() => handleToggle(item)}
+									onChange={this.onChange}
+									checked={checked}
+									onClick={this.handleToggle}
 								/>
 							</ListItemIcon>
+
 							<ListItemText
 								id={generateId()}
-								style={{ wordWrap: 'break-word' }}
+								style={
+									({ wordWrap: 'break-word' },
+									checked
+										? { textDecoration: 'line-through' }
+										: { textDecoration: 'none' })
+								}
 								primary={item}
 							/>
 

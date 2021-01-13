@@ -8,6 +8,7 @@ class Input extends Component {
 	state = {
 		items: [],
 		name: '',
+		
 	};
 	generateId=()=> {
 		return (
@@ -40,10 +41,15 @@ class Input extends Component {
 			}),
 		}));
 	};
-	handleToggle = () => {
-		this.state.items.map((item) => (item.checked ? console.log(true) : console.log(false)));
-	};
+	
+
 	render() {
+		// const styles={
+		// 	linethrough:{
+		// 		textDecoration: 'line-through'
+		// 	}
+		// }
+		// const {linethrough}= styles
 		const { items, name } = this.state;
 		return (
 			<Container>
@@ -72,7 +78,8 @@ class Input extends Component {
 				<Todo
 					items={items}
 					handleDelete={this.handleDelete}
-					handleToggle={this.handleToggle}
+					
+					
 				/>
 			</Container>
 		);
