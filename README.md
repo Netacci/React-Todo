@@ -1,6 +1,6 @@
 # A Simple Todo App
 
-This app was built to practice my React skills, It was built using React hooks and context Api.
+This app was built to practice my React skills, It was built using React Hooks, Context API and Material UI.
 
 You can add, Toggle and delete items from your Todo List
 
